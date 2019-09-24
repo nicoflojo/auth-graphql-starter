@@ -12,11 +12,11 @@ const schema = require('./schema/schema');
 const app = express();
 
 // Replace with your mongoLab URI
-const MONGO_URI = 'mongodb+srv://nico:Sugarshow1@cluster0-zbhpb.mongodb.net/test?retryWrites=true&w=majority
-';
+const MONGO_URI = 'mongodb+srv://neeksflow:rzHeRfQOeR5EnzXs@cluster0-zbhpb.mongodb.net/test?retryWrites=true&w=majority';
 
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
-mongoose.Promise = global.Promise;
+
+// mongoose.Promise = global.Promise;
 
 // Connect to the mongoDB instance and log a message
 // on success or failure
@@ -25,12 +25,23 @@ mongoose.connection
   .once('open', () => console.log('Connected to MongoLab instance.'))
   .on('error', error => console.log('Error connecting to MongoLab:', error));
 
+
+/* mongoose.connect(MONGO_URI, {
+  authSource: "admin",
+  retryWrites: true,
+  dbName: "graphql",
+  useCreateIndex: true,
+  useNewUrlParser: true
+});
+const db = mongoose.connection
+  .once("open", () => console.log("Connected to MongoLab instance."))
+  .on("error", error => console.log("Error connecting to MongoLab:", error)); */
 // Configures express to use sessions.  This places an encrypted identifier
 // on the users cookie.  When a user makes a request, this middleware examines
 // the cookie and modifies the request object to indicate which user made the request
 // The cookie itself only contains the id of a session; more data about the session
 // is stored inside of MongoDB.
-app.use(session({
+/* app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: 'aaabbbccc',
@@ -38,7 +49,19 @@ app.use(session({
     url: MONGO_URI,
     autoReconnect: true
   })
-}));
+})); */
+
+/* app.use(
+  session({
+    resave: true,
+    saveUninitialized: true,
+    secret: "aaabbbccc",
+    store: new MongoStore({
+      mongooseConnection: db,
+      autoReconnect: true
+    })
+  })
+); */
 
 // Passport is wired into express as a middleware. When a request comes in,
 // Passport will examine the request's session (as set by the above config) and
